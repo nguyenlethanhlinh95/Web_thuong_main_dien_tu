@@ -21,8 +21,8 @@ Route::get('/products', 'HomeController@shop');
 Route::get('/shop','HomeController@shop')->name('shop');
 
 //page
-Route::get('contact', 'PagesController@contact')->name('contact');
-Route::get('about', 'PagesController@about')->name('about');
+Route::get('contact', 'HomeController@contact')->name('contact');
+Route::get('about', 'HomeController@about')->name('about');
 
 
 /*--------------END Route for Font-end--------------*/
@@ -30,7 +30,14 @@ Route::get('about', 'PagesController@about')->name('about');
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
-
+Route::get('/shop', 'HomeController@shop')->name('shop');
 //logout
 Route::get('logout', '\App\Http\Controllers\Auth\LoginController@logout');
 
+/*--------------Route for Back-end--------------*/
+Route::group(['prefix' => 'admin','middleware'=>['auth','admin']], function () {
+    Route::get('/', function () {
+        return view('admin.index');
+    })->name('admin.index');
+});
+/*--------------End Route for Back-end--------------*/
