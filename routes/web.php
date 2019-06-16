@@ -31,13 +31,17 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/shop', 'HomeController@shop')->name('shop');
+Route::get('/product_details/{id}', 'HomeController@product_details')->name('product_details');
 //logout
 Route::get('logout', '\App\Http\Controllers\Auth\LoginController@logout');
 
 /*--------------Route for Back-end--------------*/
 Route::group(['prefix' => 'admin','middleware'=>['auth','admin']], function () {
     Route::get('/', function () {
-        return view('admin.index');
+        return view('admin/index');
     })->name('admin.index');
+
+    Route::resource('product','ProductsController');
+
 });
 /*--------------End Route for Back-end--------------*/

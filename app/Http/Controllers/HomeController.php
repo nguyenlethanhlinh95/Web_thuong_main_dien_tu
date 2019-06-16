@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class HomeController extends Controller
 {
@@ -28,7 +30,15 @@ class HomeController extends Controller
 
     public function shop()
     {
-        return view('front/shop');
+        $products = Product::all();
+        return view('front/shop', compact('products'));
+    }
+
+    public function product_details($id)
+    {
+        $product = DB::table('products')->where('id',$id)->get();
+        //var_dump($product);
+        return view( 'front/product-details', ['product'=>$product]);
     }
 
     public function contact()
