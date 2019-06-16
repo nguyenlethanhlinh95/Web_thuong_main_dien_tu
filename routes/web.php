@@ -25,6 +25,14 @@ Route::get('contact', 'HomeController@contact')->name('contact');
 Route::get('about', 'HomeController@about')->name('about');
 
 
+/*--------------Route for Cart--------------*/
+Route::get('/cart', 'CartController@index')->name('cart.index');
+Route::get('/cart/addItem/{id}', 'CartController@addItem')->name('cart.add');
+Route::get('/cart/destroy/{id}', 'CartController@destroy')->name('cart.destroy');
+Route::put('/cart/update/{id}', 'CartController@update')->name('cart.update');
+
+/*--------------END Route for Cart--------------*/
+
 /*--------------END Route for Font-end--------------*/
 
 Auth::routes();
