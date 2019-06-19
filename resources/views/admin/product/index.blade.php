@@ -53,6 +53,7 @@
                                             <a href="#">Edit</a>
                                         </td>
                                     </tr>
+                                    <?php $i++ ?>
                                 @endforeach
 
                                 {{--<tr class="odd gradeX">--}}

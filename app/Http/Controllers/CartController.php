@@ -34,11 +34,11 @@ class CartController extends Controller
          $qty = $request->qty;
          $proId = $request->proId;
          $rowId = $request->rowId; // for update
-
          Cart::update($rowId, $qty);
 
-         $quantity = Cart::subtotal();
-         return response()->json(array('quantity'=> $quantity), 200);
+         $cartItem = Cart::get($rowId);
+         $subtotl = $cartItem->subtotal(0);
+         return response()->json(array('subtotl'=> $subtotl), 200);
          //return 'oke' ;
 
      }

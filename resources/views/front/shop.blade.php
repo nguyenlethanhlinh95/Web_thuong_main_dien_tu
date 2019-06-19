@@ -192,7 +192,7 @@
 								<div class="product-image-wrapper">
 									<div class="single-products">
 										<div class="productinfo text-center">
-											<img src="uploads/images/products/{{ $pro->image }}" alt="" />
+											<img width="100%" height="240px" src="uploads/images/products/{{ $pro->image }}" alt="" />
 											<h2>$ {{ $pro->pro_price }}</h2>
 											<p>{{ $pro->pro_name }}</p>
 											<a href="{{ route('cart.add', ['id'=> $pro->id]) }}" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>

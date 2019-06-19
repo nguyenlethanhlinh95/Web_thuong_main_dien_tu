@@ -158,6 +158,7 @@
                 var newqty = $('#upCart<?php echo $i;?>').val();
                 var rowId = $('#rowId<?php echo $i;?>').val();
                 var proId = $('#proId<?php echo $i;?>').val();
+                var i = "<?php echo $i ?>"
 
                 if(newqty <=0){ alert('enter only valid quantity') }
                 else {
@@ -180,7 +181,7 @@
                         },
                         success: function (response) {
                             var obj = JSON.parse(response);
-                            $('.cart_total_price').html('$ ' + obj.quantity);
+                            $('#upCart<?php echo $i;?>').parent().siblings('.cart_total').children('.cart_total_pricegit ').html('$ ' + obj.subtotl);
                         }
                     });
                     // End of Aajx
