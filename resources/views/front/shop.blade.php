@@ -1,5 +1,40 @@
 @extends('layout.master')
+
+@section('js')
+	<script>
+        $(document).ready(function () {
+			$('.tbn_ajax').click(function () {
+                $.ajax({
+                    type:'get',
+                    url: "{{ route('ajax',['id' => 2]) }}",
+                    data:'_token=<?php echo csrf_token() ?>',
+                    success:function(data) {
+                        $(".loadData").append(data.msg);
+						//alert(data);
+                    }
+                });
+            })
+        });
+	</script>
+@endsection
+
 @section('content')
+	<meta name="csrf-token" content="{{ csrf_token() }}" />
+
+	<section id="testAjax">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-12">
+					<button class="tbn_ajax">
+						ajax
+					</button>
+					
+					<div class="loadData"></div>
+				</div>
+			</div>
+		</div>
+	</section>
+
 	<section id="advertisement">
 		<div class="container">
 			<img src="assets/images/shop/advertisement.jpg" alt="" />
@@ -476,5 +511,7 @@
 			</div>
 		</div>
 	</section>
-	
+
+
+
 @endsection

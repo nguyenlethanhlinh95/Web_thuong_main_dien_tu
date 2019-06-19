@@ -40,6 +40,8 @@
                                         <p>${{$item->price}}</p>
                                     </td>
                                     <td class="cart_quantity">
+                                        <input type="hidden" id="rowId<?php echo $count;?>" value="{{$item->rowId}}"/>
+                                        <input type="hidden" id="proId<?php echo $count;?>" value="{{$item->id}}"/>
                                         <input class="cart_quatity_js" type="number" size="2" value="{{$item->qty}}" name="qty" id="upCart<?php echo $count;?>"
                                                autocomplete="off" style="text-align:center; max-width:50px; "  MIN="1" MAX="1000">
                                     </td>
@@ -124,7 +126,7 @@
                         <div class="total_area">
                             <ul>
                                 <li>Cart Sub Total <span>$ {{ $item->subtotal }}</span></li>
-                                <li>Eco Tax <span>$2</span></li>
+                                <li>Eco Tax <span>$ {{ $item->tax }}</span></li>
                                 <li>Shipping Cost <span>Free</span></li>
                                 <li>Total <span>$ {{ $item->total }}</span></li>
                             </ul>
@@ -143,4 +145,48 @@
             </div>
         </div>
     @endif
+@endsection
+
+
+@section('js')
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <script>
+        $(document).ready(function () {
+            // duyet qua san pham trong gio hang
+            <?php for($i=1;$i<20;$i++){?>
+            $('#upCart<?php echo $i;?>').on('change keyup', function () {
+                var newqty = $('#upCart<?php echo $i;?>').val();
+                var rowId = $('#rowId<?php echo $i;?>').val();
+                var proId = $('#proId<?php echo $i;?>').val();
+
+                if(newqty <=0){ alert('enter only valid quantity') }
+                else {
+                    // start of ajax
+                    $.ajaxSetup({
+                        headers: {
+                            'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+                        }
+                    });
+                    $.ajax({
+                        // type: 'get',
+                        method: 'get',
+                        dataType: 'html',
+                        url : '<?php echo url('/cart/update');?>/'+proId,
+                        data:{
+                            _token: "{{ csrf_token() }}}",
+                            qty : newqty,
+                            rowId : rowId,
+                            proId : proId
+                        },
+                        success: function (response) {
+                            var obj = JSON.parse(response);
+                            $('.cart_total_price').html('$ ' + obj.quantity);
+                        }
+                    });
+                    // End of Aajx
+                }
+            });
+            <?php } ?>
+        });
+    </script>
 @endsection

@@ -29,9 +29,30 @@ class CartController extends Controller
          return back();
      }
 
+     public function update(Request $request, $id)
+     {
+         $qty = $request->qty;
+         $proId = $request->proId;
+         $rowId = $request->rowId; // for update
+
+         Cart::update($rowId, $qty);
+
+         $quantity = Cart::subtotal();
+         return response()->json(array('quantity'=> $quantity), 200);
+         //return 'oke' ;
+
+     }
+
     public function destroy($id){
         Cart::remove($id);
         // echo $id;
         return back();
+    }
+
+
+    public function test($id)
+    {
+        $msg = "This is a simple message " . $id;
+        return response()->json(array('msg'=> $msg), 200);
     }
 }

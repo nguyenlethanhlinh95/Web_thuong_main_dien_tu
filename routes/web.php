@@ -29,7 +29,9 @@ Route::get('about', 'HomeController@about')->name('about');
 Route::get('/cart', 'CartController@index')->name('cart.index');
 Route::get('/cart/addItem/{id}', 'CartController@addItem')->name('cart.add');
 Route::get('/cart/destroy/{id}', 'CartController@destroy')->name('cart.destroy');
-Route::put('/cart/update/{id}', 'CartController@update')->name('cart.update');
+Route::get('/cart/update/{id}', 'CartController@update')->name('cart.update');
+
+Route::get('/testAjax/{id}', 'CartController@test')->name('ajax');
 
 /*--------------END Route for Cart--------------*/
 
